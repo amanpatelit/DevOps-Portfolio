@@ -1,0 +1,41 @@
+name: Deploy Static Website to S3
+
+on:
+  push:
+    branches:
+      - main  # Deploy when you push to 'main' branch
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy to AWS S3
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1   # Change if your bucket is in another region
+
+      - name: Deploy to S3
+        run: |
+          aws s3 sync . s3://amansdlc.com \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --delete \
+            --cache-control "max-age=31536000,public"
+
+      # Optional: CloudFront cache invalidation (if using CDN)
+      - name: Invalidate CloudFront Cache
+        if: always()
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id E3JKP1VDVI3LF3 \
+            --paths "/*"
