@@ -3,7 +3,7 @@ name: Deploy Static Website to S3
 on:
   push:
     branches:
-      - main  # Deploy when you push to 'main' branch
+      - main  # Trigger deployment on push to main branch
 
 permissions:
   contents: read
@@ -22,20 +22,28 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2   # Change if your bucket is in another region
+          aws-region: us-east-2   
 
-      - name: Deploy to S3
+      #  Step 1: Clean the existing S3 bucket contents
+      - name: Clear existing S3 content
         run: |
+          echo "Deleting old files from S3 bucket..."
+          aws s3 rm s3://amansdlc.com --recursive
+
+      #  Step 2: Deploy new static website files
+      - name: Upload new website files to S3
+        run: |
+          echo "Uploading new files..."
           aws s3 sync . s3://amansdlc.com \
             --exclude ".git/*" \
             --exclude ".github/*" \
-            --delete \
             --cache-control "max-age=31536000,public"
 
-      # Optional: CloudFront cache invalidation (if using CDN)
+      #  Optional: CloudFront cache invalidation
       - name: Invalidate CloudFront Cache
         if: always()
         run: |
+          echo "Invalidating CloudFront cache..."
           aws cloudfront create-invalidation \
             --distribution-id E3JKP1VDVI3LF3 \
             --paths "/*"
