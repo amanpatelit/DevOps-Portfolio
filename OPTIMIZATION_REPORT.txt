@@ -1,0 +1,21 @@
+Optimization Report
+===================
+Images optimized: 13
+Total before: 6195.3 KB
+Total after:  2614.8 KB
+Saved:        3580.5 KB
+
+Per-file savings:
+- images/about-me.png: 373.7 KB → 915.7 KB (saved -542.0 KB)
+- images/bg_1.jpg: 1339.2 KB → 811.4 KB (saved 527.8 KB)
+- images/bg_1.png: 2069.5 KB → 329.0 KB (saved 1740.4 KB)
+- images/browser.png: 1704.9 KB → 267.6 KB (saved 1437.4 KB)
+- images/loc.png: 1.9 KB → 1.4 KB (saved 0.5 KB)
+- images/proj_1.jpg: 93.7 KB → 51.3 KB (saved 42.4 KB)
+- images/proj_12.jpg: 201.0 KB → 55.8 KB (saved 145.2 KB)
+- images/proj_2.jpg: 195.2 KB → 89.8 KB (saved 105.4 KB)
+- images/proj_3.jpg: 208.4 KB → 87.8 KB (saved 120.6 KB)
+- lib/lightbox/images/close.png: 0.3 KB → 0.3 KB (saved -0.0 KB)
+- lib/lightbox/images/next.png: 1.3 KB → 1.3 KB (saved 0.1 KB)
+- lib/lightbox/images/prev.png: 1.3 KB → 1.3 KB (saved 0.0 KB)
+- lib/owlcarousel/assets/owl.video.play.png: 4.9 KB → 2.0 KB (saved 2.8 KB)

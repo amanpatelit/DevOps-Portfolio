@@ -1,0 +1,94 @@
+/* === Optimized overrides (readable, non-destructive) === */
+
+/* Typography & base */
+html { -webkit-text-size-adjust: 100%; }
+body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* Containers scale on small screens */
+.container, .ftco-section, .wrap, .content, .row, .col, [class*="container"] {
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+/* Buttons: subtle hover */
+a.btn, .btn, button, input[type="submit"] {
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease;
+}
+a.btn:hover, .btn:hover, button:hover, input[type="submit"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+/* Headings scale responsively */
+h1 { font-size: clamp(1.75rem, 3.5vw, 2.75rem); line-height: 1.15; }
+h2 { font-size: clamp(1.4rem, 2.8vw, 2rem); }
+h3 { font-size: clamp(1.1rem, 2.2vw, 1.5rem); }
+.lead, p { font-size: clamp(1rem, 1.3vw, 1.125rem); }
+
+/* Navigation responsiveness */
+@media (max-width: 992px) {
+  nav ul, .navbar-nav, .site-navigation {
+    display: grid !important;
+    grid-auto-rows: min-content;
+    gap: .5rem;
+  }
+}
+
+/* Grid and columns stack on mobile */
+@media (max-width: 992px) {
+  .row, [class*="row"], .d-flex {
+    flex-wrap: wrap !important;
+  }
+  [class*="col-"], .col, .column {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Hero/media scaling */
+.hero, .home-slider, .slider-text, .hero-wrap {
+  min-height: auto !important;
+  padding-block: clamp(1.5rem, 6vw, 3rem) !important;
+  background-size: cover;
+  background-position: center;
+}
+
+@media (max-width: 768px){
+  .hero .text, .slider-text .text, .hero-content, .text-center {
+    text-align: center !important;
+  }
+  .hero .btn, .slider-text .btn { margin-inline: auto; }
+}
+
+/* Cards and sections */
+.card, .services, .blog-entry, .project, .resume-wrap, .about-info {
+  border-radius: 12px;
+  overflow: hidden;
+}
+.card:hover, .services:hover, .blog-entry:hover, .project:hover {
+  outline: 1px solid rgba(0,0,0,.06);
+}
+
+/* Lists spacing */
+ul { padding-left: 1.2rem; }
+ul li { margin: .35rem 0; }
+
+/* Footer tidy */
+footer, .ftco-footer {
+  padding-block: 2rem;
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce){
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* Utility responsive helpers */
+.hide-sm { display: none; }
+@media (min-width: 768px){ .hide-sm { display: initial; } }
+
+/* Image placeholders avoid layout shift */
+img[loading="lazy"] { background: rgba(0,0,0,.02); }
