@@ -27,7 +27,7 @@ jobs:
       #  Step 1: Clean the existing S3 bucket contents
       - name: Clear existing S3 content
         run: |
-          echo "Deleting old files from S3 bucket..."
+          echo "Deleting old files from S3 bucket."
           aws s3 rm s3://amansdlc.com --recursive
 
       #  Step 2: Deploy new static website files
