@@ -8,6 +8,11 @@ on:
 permissions:
   contents: read
 
+env:
+  AWS_REGION: us-east-2
+  S3_BUCKET: ${{ secrets.S3_BUCKET }}
+  CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+
 jobs:
   deploy:
     name: Deploy to AWS S3
@@ -22,28 +27,28 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2   
+          aws-region: ${{ env.AWS_REGION }}
 
-      #  Step 1: Clean the existing S3 bucket contents
+      # Step 1: Clean existing S3 bucket contents
       - name: Clear existing S3 content
         run: |
-          echo "Deleting old files from S3 bucket."
-          aws s3 rm s3://amansdlc.com --recursive
+          echo "Deleting old files from S3 bucket: $S3_BUCKET"
+          aws s3 rm s3://$S3_BUCKET --recursive
 
-      #  Step 2: Deploy new static website files
+      # Step 2: Deploy new static website files
       - name: Upload new website files to S3
         run: |
-          echo "Uploading new files..."
-          aws s3 sync . s3://amansdlc.com \
+          echo "Uploading new files to $S3_BUCKET..."
+          aws s3 sync . s3://$S3_BUCKET \
             --exclude ".git/*" \
             --exclude ".github/*" \
             --cache-control "max-age=31536000,public"
 
-      #  Optional: CloudFront cache invalidation
+      # Step 3: Invalidate CloudFront cache
       - name: Invalidate CloudFront Cache
         if: always()
         run: |
-          echo "Invalidating CloudFront cache..."
+          echo "Invalidating CloudFront cache for $CLOUDFRONT_DISTRIBUTION_ID..."
           aws cloudfront create-invalidation \
-            --distribution-id E2ELWR5KBQ15AH \
+            --distribution-id $CLOUDFRONT_DISTRIBUTION_ID \
             --paths "/*"
