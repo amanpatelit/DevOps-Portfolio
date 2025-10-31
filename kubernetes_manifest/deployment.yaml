@@ -50,7 +50,7 @@ metadata:
     alb.ingress.kubernetes.io/healthcheck-port: "80"
 spec:
   rules:
-  - host: amansdlc.com   # Replace with your domain
+  - host: amansdlc.com  
     http:
       paths:
       - path: /
