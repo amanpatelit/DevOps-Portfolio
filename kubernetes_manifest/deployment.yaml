@@ -3,20 +3,20 @@ kind: Deployment
 metadata:
   name: amansdlc-deployment
   labels:
-    app: web-app
+    app: devops-portfolio
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: web-app
+      app: devops-portfolio
   template:
     metadata:
       labels:
-        app: web-app
+        app: devops-portfolio
     spec:
       containers:
-      - name: web-app
-        image: amanpatelofficial/amanops:latest
+      - name: devops-portfolio
+        image: amanpatelofficial/devops-portfolio:tagname:v1.0.1
         ports:
         - containerPort: 80
 
@@ -24,10 +24,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-app-svc
+  name: devops-portfolio-svc
 spec:
   selector:
-    app: web-app
+    app: devops-portfolio
   ports:
   - protocol: TCP
     port: 80
@@ -38,7 +38,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: web-app-ingress
+  name: devops-portfolio-ingress
   annotations:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
@@ -50,13 +50,13 @@ metadata:
     alb.ingress.kubernetes.io/healthcheck-port: "80"
 spec:
   rules:
-  - host: webapp.example.com   # Replace with your domain
+  - host: amansdlc.com   # Replace with your domain
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: web-app-svc
+            name: devops-portfolio-svc
             port:
               number: 80
